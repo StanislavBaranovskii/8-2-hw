@@ -27,6 +27,7 @@
     echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
     sudo apt update
     sudo apt -y install jenkins
+    http://127.0.0.1:8080
     ```
 2. Установите на машину с jenkins [golang](https://golang.org/doc/install).
     ```
@@ -78,9 +79,60 @@
 ### Задание 3
 
 1. Установите на машину Nexus.
+```
+sudo docker run -d -p 8081:8081 --name nexus sonatype/nexus3
+```
 2. Создайте raw-hosted репозиторий.
 3. Измените pipeline так, чтобы вместо Docker-образа собирался бинарный go-файл. Команду можно скопировать из Dockerfile.
+    ```
+    pipeline {
+        agent any
+        stages {
+            stage('Git') {
+                steps {git 'https://github.com/StanislavBaranovskii/8-2-hw.git'}
+            }
+            stage('Build') {
+                steps {
+                    sh 'go build -a -installsuffix nocgo -o app'
+                }
+            }
+        }
+    }
+    ```
 4. Загрузите файл в репозиторий с помощью jenkins.
+
+В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+
+![Конфигурация проекта 3](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.1.jpg "Конфигурация проекта")
+![Сборка 3](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.2.jpg "Сборка")
+![Конфигурация проекта Nexus](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.3.jpg "Конфигурация проекта Nexus")
+![Репозиторий Nexus](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.3.jpg "Репозиторий Nexus")
+
+---
+
+### Задание 4
+
+1. Придумайте способ версионировать приложение, чтобы каждый следующий запуск сборки присваивал имени файла новую версию. Таким образом, в репозитории Nexus будет храниться история релизов. Подсказка: используйте переменную BUILD_NUMBER.
+    ```
+    pipeline {
+        agent any
+        stages {
+            stage('Git') {
+                steps {git 'https://github.com/StanislavBaranovskii/8-2-hw.git'}
+            }
+            stage('Build') {
+                steps {
+                    sh "go build -a -installsuffix nocgo -o app-${BUILD_NUMBER}"
+                    echo "build version \${BUILD_NUMBER} = ${BUILD_NUMBER}"
+                }
+            }
+        }
+    }
+    ```
+
+В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+
+![Сборка 4](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.4.jpg "Сборка")
 
 ---
 
