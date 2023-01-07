@@ -36,19 +36,53 @@
     ```
 3. Используя свой аккаунт на GitHub, сделайте себе форк [репозитория](https://github.com/netology-code/sdvps-materials.git). В этом же репозитории находится [дополнительный материал для выполнения ДЗ](https://github.com/netology-code/sdvps-materials/blob/main/CICD/8.2-hw.md).
 4. Создайте в jenkins Freestyle Project, подключите получившийся репозиторий к нему и произведите запуск тестов и сборку проекта `go test .` и `docker build .`.
+
 В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
 
-![Конфигурация проекта. Часть 1.](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.11.jpg)
-![Конфигурация проекта. Часть 2.](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.12.jpg)
-![Сборка. Часть 1.](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.2.jpg)
-![Сборка. Часть 2.](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.3.jpg)
-
-
+![Конфигурация проекта. Часть 1](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.11.jpg "Конфигурация проекта. Часть 1")
+![Конфигурация проекта. Часть 2](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.12.jpg "Конфигурация проекта. Часть 2")
+![Сборка. Часть 1](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.2.jpg "Сборка. Часть 1")
+![Сборка. Часть 2](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.1.3.jpg "Сборка. Часть 2")
 
 ---
 
 ### Задание 2
 
+1. Создайте новый проект pipeline.
+2. Перепишите сборку из задания 1 на declarative в виде кода.
+    ```
+    pipeline {
+        agent any
+        stages {
+            stage('Git') {
+                steps {git 'https://github.com/StanislavBaranovskii/8-2-hw.git'}
+            }
+            stage('Build') {
+                steps {
+                    sh 'go test .'
+                    sh 'docker build .'
+                }
+            }
+        }
+    }
+    ```
+
+В качестве ответа пришлите скриншоты с настройками проекта и результатами выполнения сборки.
+
+![Конфигурация проекта](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.2.1.jpg "Конфигурация проекта")
+![Сборка 2. Часть 1](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.2.2.jpg "Сборка. Часть 1")
+![Сборка 2. Часть 2](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.2.3.jpg "Сборка. Часть 2")
+
+---
+
+### Задание 3
+
+1. Установите на машину Nexus.
+2. Создайте raw-hosted репозиторий.
+3. Измените pipeline так, чтобы вместо Docker-образа собирался бинарный go-файл. Команду можно скопировать из Dockerfile.
+4. Загрузите файл в репозиторий с помощью jenkins.
+
+---
 
 ### Дополнительные материалы, которые могут быть полезны для выполнения задания
 
