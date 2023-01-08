@@ -106,7 +106,7 @@ sudo docker run -d -p 8081:8081 --name nexus sonatype/nexus3
 ![Конфигурация проекта 3](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.1.jpg "Конфигурация проекта")
 ![Сборка 3](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.2.jpg "Сборка")
 ![Конфигурация проекта Nexus](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.3.jpg "Конфигурация проекта Nexus")
-![Репозиторий Nexus](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.3.jpg "Репозиторий Nexus")
+![Репозиторий Nexus](https://github.com/StanislavBaranovskii/8-2-hw/blob/main/img/8.2.3.4.jpg "Репозиторий Nexus")
 
 ---
 
